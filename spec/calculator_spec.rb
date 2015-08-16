@@ -4,7 +4,7 @@ describe 'Calculator' do
 
   describe 'input parameter processing' do
     before(:all) do
-      @rates_file_path = "assets/example_market.csv"
+      @rates_file_path = "assets/test/example_market.csv"
       @requested_amount = 1000
     end
 

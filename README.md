@@ -10,7 +10,7 @@
 rate_calculator.rb is the main file. It expects a csv file for the rates information and the loan amount.
 
 Example command:
-- `ruby lib/rate_calculator.rb assets/example_market.csv 1000`
+- `ruby lib/rate_calculator.rb assets/market.csv 1000`
 
 ## Inputs
 
