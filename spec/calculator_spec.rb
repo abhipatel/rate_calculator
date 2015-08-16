@@ -46,6 +46,10 @@ describe 'Calculator' do
       expect{ Calculator.new(@rates_file_path, 1003) }.to raise_error(ArgumentError, "Requested amount must be between 100 and 15000 and an increment of 100")
     end
 
+    it 'rejects loan amount if market does not have sufficient available amount' do
+      expect{ Calculator.new(@rates_file_path, 10000)}.to raise_error(ArgumentError, "It is not possible to provide a quote at this time")
+    end
+
     it 'sorts rates by lowest rate first' do
       calculator = Calculator.new("assets/test/unsorted_market.csv", @requested_amount)
       sorted_market = [{lender: "Jane", rate: 0.069, available: 480}, {lender: "Bob", rate: 0.075, available: 640}]

@@ -5,5 +5,9 @@ if ARGV.empty? || ARGV.size < 2
   exit 1
 end
 
-calculator = Calculator.new ARGV.shift, ARGV.shift
-calculator.get_rates
+begin
+  calculator = Calculator.new ARGV.shift, ARGV.shift
+  calculator.get_rates
+rescue => e
+  puts e.message
+end

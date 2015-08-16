@@ -21,6 +21,8 @@ class Calculator
       raise(ArgumentError, "Requested amount must be set and a valid integer value")
     elsif @requested_amount < MIN_REQUESTED_AMOUNT || @requested_amount > MAX_REQUESTED_AMOUNT || @requested_amount % 100 > 0
       raise(ArgumentError, "Requested amount must be between #{MIN_REQUESTED_AMOUNT} and #{MAX_REQUESTED_AMOUNT} and an increment of 100")
+    elsif @requested_amount > @total_available
+      raise(ArgumentError, "It is not possible to provide a quote at this time")
     end
   end
 
