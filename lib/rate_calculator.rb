@@ -7,7 +7,8 @@ end
 
 begin
   calculator = Calculator.new ARGV.shift, 100, 15000
-  calculator.get_rates ARGV.shift
+  loan_details = calculator.calculate_loan_details ARGV.shift
+  calculator.print_loan_details loan_details
 rescue => e
   puts e.message
 end
