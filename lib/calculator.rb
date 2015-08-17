@@ -2,11 +2,11 @@ require 'csv'
 
 class Calculator
 
-  MIN_REQUESTED_AMOUNT = 100
-  MAX_REQUESTED_AMOUNT = 15000
+  @min_requested_amount = 100
+  @max_requested_amount = 15000
   attr_reader :rates
 
-  def initialize rates_file_path, amount
+  def initialize rates_file_path, min_requested_amount, max_requested_amount
     if rates_file_path.nil?
       raise(ArgumentError, "Rates file path should be set")
     elsif !File.size?(rates_file_path)
@@ -15,18 +15,12 @@ class Calculator
       @rates = parse_rates_file rates_file_path
       @total_available = @rates.inject(0) {|sum,row| sum + row[:available]}
     end
-
-    @requested_amount = amount.to_i
-    if @requested_amount == 0
-      raise(ArgumentError, "Requested amount must be set and a valid integer value")
-    elsif @requested_amount < MIN_REQUESTED_AMOUNT || @requested_amount > MAX_REQUESTED_AMOUNT || @requested_amount % 100 > 0
-      raise(ArgumentError, "Requested amount must be between #{MIN_REQUESTED_AMOUNT} and #{MAX_REQUESTED_AMOUNT} and an increment of 100")
-    elsif @requested_amount > @total_available
-      raise(ArgumentError, "It is not possible to provide a quote at this time")
-    end
+    @min_requested_amount = min_requested_amount
+    @max_requested_amount = max_requested_amount
   end
 
-  def get_rates
+  def get_rates amount
+    requested_amount = parse_requested_amount amount
   end
 
   private
@@ -42,5 +36,17 @@ class Calculator
     rates.sort! {|a,b| a[:rate] <=> b[:rate]}
     csv.close
     rates
+  end
+
+  def parse_requested_amount amount
+    requested_amount = amount.to_i
+    if requested_amount == 0
+      raise(ArgumentError, "Requested amount must be set and a valid integer value")
+    elsif requested_amount < @min_requested_amount || requested_amount > @max_requested_amount || requested_amount % 100 > 0
+      raise(ArgumentError, "Requested amount must be between #{@min_requested_amount} and #{@max_requested_amount} and an increment of 100")
+    elsif requested_amount > @total_available
+      raise(ArgumentError, "It is not possible to provide a quote at this time")
+    end
+    requested_amount
   end
 end
