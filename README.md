@@ -46,7 +46,8 @@ http://mathforum.org/dr.math/faq/faq.interest.html#install
 
 * Rate specified in market file is yearly interest rate
 * Lender with the higher amount available will be used first if two lenders provide the same interest rate
-* Monthly and total repayment amounts are most important in terms of priority, the rate will be interpolated from the repayment amounts if more than one interest rate is used
+* Monthly and total repayment amounts are most important in terms of precision, the rate will be interpolated
+from the repayment amounts if more than one interest rate is used
 
 ## Testing
 
